@@ -16,12 +16,12 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [datosPersonalesFragment.OnFragmentInteractionListener] interface
+ * [DatosPersonalesFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [datosPersonalesFragment.newInstance] factory method to
+ * Use the [DatosPersonalesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class datosPersonalesFragment : Fragment() {
+class DatosPersonalesFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,8 +35,10 @@ class datosPersonalesFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_datos_personales, container, false)
     }
@@ -83,16 +85,16 @@ class datosPersonalesFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment datosPersonalesFragment.
+         * @return A new instance of fragment DatosPersonalesFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                datosPersonalesFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
+            DatosPersonalesFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
+            }
     }
 }

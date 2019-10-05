@@ -89,7 +89,6 @@
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="195dp">
 
-
             <LinearLayout
                 android:layout_width="157dp"
                 android:layout_height="108dp"

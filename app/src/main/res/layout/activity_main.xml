@@ -34,7 +34,6 @@
             tools:layout_editor_absoluteY="195dp">
 
             <LinearLayout
-
                 android:layout_width="157dp"
                 android:layout_height="108dp"
                 android:gravity="center"
@@ -149,6 +148,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/botonCupones"
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="164dp"

@@ -7,32 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [CuponesFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [CuponesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CuponesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+
+    private var itemsCupones: ArrayList<CuponItem>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+        Volley.newRequestQueue(this.context)
+        parsearJson()
     }
 
     override fun onCreateView(
@@ -45,13 +32,11 @@ class CuponesFragment : Fragment() {
 
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
-            listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
@@ -59,7 +44,6 @@ class CuponesFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        listener = null
     }
 
     /**
@@ -78,23 +62,8 @@ class CuponesFragment : Fragment() {
         fun onFragmentInteraction(uri: Uri)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CuponesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CuponesFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun parsearJson(){
+        this.itemsCupones?.add(CuponItem("http://verorezk.com/wp-content/uploads/2013/12/Fravega-logo.jpg", "Fravega"))
+        this.itemsCupones?.add(CuponItem("https://www.dossiernet.com.ar/assets/scripts/load.php?src=https://www.dossiernet.com/assets/uploads/images/garbarino14.jpg&w=1200&h=700&zc=1&q=70", "Garbarino"))
     }
 }

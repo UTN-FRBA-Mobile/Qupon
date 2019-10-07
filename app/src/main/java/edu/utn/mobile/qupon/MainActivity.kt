@@ -12,6 +12,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //setSupportActionBar(toolbar)
         //val host = NavHostFragment.create(R.navigation.nav_graph)
-        //supportFragmentManager.beginTransaction().replace(R.id.mapMainFragment,host).setPrimaryNavigationFragment(host).commit()
+        //supportFragmentManager.beginTransaction().replace(R.id.cuponesFragment,host).setPrimaryNavigationFragment(host).commit()
     }
 }

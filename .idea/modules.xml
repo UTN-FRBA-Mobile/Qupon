@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidStudioProjects-Qupon.iml" filepath="$PROJECT_DIR$/AndroidStudioProjects-Qupon.iml" />
       <module fileurl="file://$PROJECT_DIR$/Qupon.iml" filepath="$PROJECT_DIR$/Qupon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/Qupon-app.iml" filepath="$PROJECT_DIR$/app/Qupon-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

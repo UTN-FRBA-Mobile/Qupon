@@ -6,6 +6,7 @@
     <color name="background">#FCFCFC</color>
     <color name="lightgray">#EDEDED</color>
     <color name="deeppurple">#7C4DFF</color>
-    <color name="yello">#FFB300</color>
+    <color name="yellow">#FFB300</color>
     <color name="green">#00BFA5</color>
+    <color name="pink">#D81B60</color>
 </resources>

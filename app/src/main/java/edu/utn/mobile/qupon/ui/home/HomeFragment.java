@@ -32,27 +32,28 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getFragmentManager()
-                .findFragmentById(R.id.nav_home);
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.home_map_fragment);
         mapFragment.getMapAsync(this);
 
 
-        final TextView textView = root.findViewById(R.id.text_home);
+        /*final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(-34.61574, -58.57338);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng bsas = new LatLng(-34.6157437, -58.4244954);
+        googleMap.addMarker(new MarkerOptions().position(bsas)
+                .title("Local en Bs. As."));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bsas, 12.0f));
+        googleMap.getUiSettings().setCompassEnabled(true);
     }
 
 }

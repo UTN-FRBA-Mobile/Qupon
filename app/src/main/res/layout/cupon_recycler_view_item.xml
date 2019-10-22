@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="#999999">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/cupon_rv_item_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/mclogo"/>
+
+        <TextView
+            android:id="@+id/cupon_rv_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Titulo"
+            android:gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cupon_rv_item_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripcion"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"/>
+
+</LinearLayout>

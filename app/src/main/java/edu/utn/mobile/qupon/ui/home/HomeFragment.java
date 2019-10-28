@@ -50,8 +50,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         LatLng bsas = new LatLng(-34.6157437, -58.4244954);
+
         googleMap.addMarker(new MarkerOptions().position(bsas)
-                .title("Local en Bs. As."));
+                .title("Mc Donald´s"));
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(-34.6203259,-58.3845563))
+                .title("Burger King"));
+        googleMap.addMarker(new MarkerOptions().position(new LatLng(-34.6102944,-58.3956384))
+                .title("Wendy´s"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bsas, 12.0f));
         googleMap.getUiSettings().setCompassEnabled(true);
     }

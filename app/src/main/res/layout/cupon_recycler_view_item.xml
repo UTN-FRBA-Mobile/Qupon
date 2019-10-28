@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
     android:layout_margin="10dp"
-    android:background="#999999">
+    card_view:cardCornerRadius="5dp"
+    card_view:cardElevation="5dp"
+    card_view:cardBackgroundColor="#FFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/cupon_rv_item_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/mclogo"/>
-
-        <TextView
-            android:id="@+id/cupon_rv_item_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Titulo"
+            android:layout_height="120dp"
+            android:src="@drawable/mclogo"
+            android:scaleType="centerCrop"
             android:gravity="center_horizontal"
-            android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cupon_rv_item_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Titulo"
+                android:textStyle="bold"
+                android:textSize="@dimen/cardview_title_font_size"/>
+
+            <TextView
+                android:id="@+id/cupon_rv_item_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripcion"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/cupon_rv_item_desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descripcion"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"/>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

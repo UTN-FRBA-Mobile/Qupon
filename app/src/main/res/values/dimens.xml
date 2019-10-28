@@ -6,4 +6,5 @@
     <dimen name="nav_header_height">156dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="cardview_title_font_size">18dp</dimen>
+    <dimen name="fragment_title_font_size">22dp</dimen>
 </resources>

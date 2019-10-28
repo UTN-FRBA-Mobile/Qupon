@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Qupon</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Preferencias</string>
+
+    <string name="title_home">Qupon</string>
+    <string name="menu_home">Mapa</string>
+    <string name="menu_gallery">Cupones</string>
+    <string name="menu_slideshow">QR</string>
+    <string name="menu_tools">Preferencias</string>
+    <string name="menu_share">Compartir</string>
+    <string name="menu_send">Enviar</string>
+
+    <string name="google_maps_key">AIzaSyBpDRxPaYouQvpWHrS7f_H7bdYBWpXavO0</string>
+</resources>

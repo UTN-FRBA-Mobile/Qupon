@@ -34,16 +34,16 @@ public class CuponesRecyclerViewAdapter extends RecyclerView.Adapter<CuponItemVi
     public CuponItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cupon_recycler_view_item, parent,false);
         CuponItemViewHolder cv = new CuponItemViewHolder(v);
+        //cv.touchListener = listener;
         return cv;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CuponItemViewHolder holder, int position) {
+        //holder.itemIndex = position;
         holder.description.setText(mDataSet.get(position).desc);
         holder.title.setText(mDataSet.get(position).title);
         Picasso.with(context).load(mDataSet.get(position).imgResource).into(holder.image);
-
-
     }
 
     @Override

@@ -13,9 +13,11 @@ import edu.utn.mobile.qupon.R;
 
 public class CuponItemViewHolder extends RecyclerView.ViewHolder {
 
+    int itemIndex;
     public TextView title;
     public TextView description;
     public ImageView image;
+    public RecyclerView.OnItemTouchListener touchListener;
 
     public CuponItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,5 +25,11 @@ public class CuponItemViewHolder extends RecyclerView.ViewHolder {
         description = itemView.findViewById(R.id.cupon_rv_item_desc);
         image = itemView.findViewById(R.id.cupon_rv_item_image);
 
+        /*image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.clickearon(itemIndex);
+            }
+        });*/
     }
 }

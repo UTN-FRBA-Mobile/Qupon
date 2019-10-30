@@ -2,11 +2,13 @@ package edu.utn.mobile.qupon.ui.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +19,9 @@ import java.util.List;
 import edu.utn.mobile.qupon.R;
 import edu.utn.mobile.qupon.ui.gallery.adapters.CuponesRecyclerViewAdapter;
 import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.ui.slideshow.SlideshowFragment;
 
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment implements RecyclerView.OnItemTouchListener {
 
 
     private Integer ROWS = 10;
@@ -43,6 +46,27 @@ public class GalleryFragment extends Fragment {
         myRecyclerView.setLayoutManager(lm);
         myRecyclerView.setAdapter(new CuponesRecyclerViewAdapter(getContext(), dataSet));
 
+        myRecyclerView.addOnItemTouchListener(this); //para una sola accion
+
         return root;
     }
+
+    @Override
+    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+        return true;
+    }
+
+    @Override
+    public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+        Fragment newFragment2 = new SlideshowFragment();
+        FragmentTransaction transaction2 = getChildFragmentManager().beginTransaction();
+        transaction2.add(R.id.cupon_rv_item_image, newFragment2);
+        // transaction.addToBackStack(null);
+        transaction2.commit();
+    }
+
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    }
+
 }

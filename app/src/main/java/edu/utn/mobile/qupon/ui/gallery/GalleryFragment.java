@@ -8,18 +8,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.utn.mobile.qupon.R;
 import edu.utn.mobile.qupon.ui.gallery.adapters.CuponesRecyclerViewAdapter;
 import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
-import edu.utn.mobile.qupon.ui.slideshow.SlideshowFragment;
 
 public class GalleryFragment extends Fragment implements RecyclerView.OnItemTouchListener {
 
@@ -58,11 +57,12 @@ public class GalleryFragment extends Fragment implements RecyclerView.OnItemTouc
 
     @Override
     public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-        Fragment newFragment2 = new SlideshowFragment();
-        FragmentTransaction transaction2 = getChildFragmentManager().beginTransaction();
-        transaction2.add(R.id.cupon_rv_item_image, newFragment2);
-        // transaction.addToBackStack(null);
-        transaction2.commit();
+        NavController navController = Navigation.findNavController(this.getView());
+
+        //para prevenir el doble click (https://stackoverflow.com/a/53737537)
+        if (navController.getCurrentDestination().getId() == R.id.nav_gallery) {
+            navController.navigate(R.id.action_nav_gallery_to_nav_slideshow);
+        }
     }
 
     @Override

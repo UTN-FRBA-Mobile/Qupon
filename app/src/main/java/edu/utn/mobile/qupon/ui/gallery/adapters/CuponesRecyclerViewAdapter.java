@@ -34,7 +34,6 @@ public class CuponesRecyclerViewAdapter extends RecyclerView.Adapter<CuponItemVi
     public CuponItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cupon_recycler_view_item, parent,false);
         CuponItemViewHolder cv = new CuponItemViewHolder(v);
-        //cv.touchListener = listener;
         return cv;
     }
 

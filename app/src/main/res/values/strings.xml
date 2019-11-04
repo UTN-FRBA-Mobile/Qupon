@@ -10,7 +10,7 @@
     <string name="title_home" translatable="false">Qupon</string>
     <string name="menu_home">Map</string>
     <string name="menu_gallery">Coupons</string>
-    <string name="menu_slideshow">QR</string>
+    <string name="menu_slideshow">Coupon details</string>
     <string name="menu_tools">Settings</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>

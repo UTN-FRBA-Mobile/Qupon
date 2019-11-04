@@ -17,19 +17,11 @@ public class CuponItemViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView description;
     public ImageView image;
-    public RecyclerView.OnItemTouchListener touchListener;
 
     public CuponItemViewHolder(@NonNull View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.cupon_rv_item_title);
         description = itemView.findViewById(R.id.cupon_rv_item_desc);
         image = itemView.findViewById(R.id.cupon_rv_item_image);
-
-        /*image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.clickearon(itemIndex);
-            }
-        });*/
     }
 }

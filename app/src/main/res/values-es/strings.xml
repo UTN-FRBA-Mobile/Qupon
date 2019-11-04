@@ -10,7 +10,7 @@
     <string name="title_home">Qupon</string>
     <string name="menu_home">Mapa</string>
     <string name="menu_gallery">Cupones</string>
-    <string name="menu_slideshow">QR</string>
+    <string name="menu_slideshow">Detalle del cupón</string>
     <string name="menu_tools">Preferencias</string>
     <string name="menu_share">Compartir</string>
     <string name="menu_send">Enviar</string>

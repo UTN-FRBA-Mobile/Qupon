@@ -1,6 +1,7 @@
 package edu.utn.mobile.qupon.ui.gallery;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,12 +20,14 @@ import java.util.List;
 import edu.utn.mobile.qupon.R;
 import edu.utn.mobile.qupon.ui.gallery.adapters.CuponesRecyclerViewAdapter;
 import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.ui.gallery.viewHolders.CuponItemViewHolder;
 
-public class GalleryFragment extends Fragment implements RecyclerView.OnItemTouchListener {
+public class GalleryFragment extends Fragment {
 
 
     private Integer ROWS = 10;
     private Integer COLUMNS = 5;
+    List<Cupon> dataSet;
 
     private GalleryViewModel galleryViewModel;
 
@@ -34,39 +37,32 @@ public class GalleryFragment extends Fragment implements RecyclerView.OnItemTouc
         galleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        List<Cupon> dataSet = new ArrayList<>();
-        dataSet.add(new Cupon("McDonalds", "50% de descuento en Sundaes", "https://picsum.photos/300"));
-        dataSet.add(new Cupon("Burguer King", "2x1 en Triple Kings", "https://picsum.photos/301"));
-        dataSet.add(new Cupon("Wendys", "Llevate una ensalada de regalo", "https://picsum.photos/302"));
+        dataSet = new ArrayList<>();
+        dataSet.add(new Cupon("McDonalds", "50% de descuento en Sundaes", "https://picsum.photos/300", -34.6010156,-58.4287612 ));
+        dataSet.add(new Cupon("Burguer King", "2x1 en Triple Kings", "https://picsum.photos/301", -34.6009797,-58.4287612 ));
+        dataSet.add(new Cupon("Wendys", "Llevate una ensalada de regalo", "https://picsum.photos/302", -34.6008861,-58.4550259 ));
+
 
         RecyclerView myRecyclerView = root.findViewById(R.id.gallery_fragment_recycler_view);
         myRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(lm);
-        myRecyclerView.setAdapter(new CuponesRecyclerViewAdapter(getContext(), dataSet));
+        myRecyclerView.setAdapter(new CuponesRecyclerViewAdapter(getContext(), dataSet, new CuponItemViewHolder.OnViewClickListener() {
+            @Override
+            public void onViewClick(View v, int adapterPosition) {
+                Log.i ( "tag", String.valueOf( adapterPosition) );
+                NavController navController = Navigation.findNavController(getView());
+                Bundle bundle  = new Bundle();
+                Cupon cupon = dataSet.get(adapterPosition);
+                bundle.putSerializable("cupon", cupon);
+                bundle.putString("desc", "Descripción");
+                navController.navigate(R.id.action_nav_gallery_to_nav_slideshow, bundle);
+            }
+        }));
 
-        myRecyclerView.addOnItemTouchListener(this); //para una sola accion
 
         return root;
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-        return true;
-    }
-
-    @Override
-    public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-        NavController navController = Navigation.findNavController(this.getView());
-
-        //para prevenir el doble click (https://stackoverflow.com/a/53737537)
-        if (navController.getCurrentDestination().getId() == R.id.nav_gallery) {
-            navController.navigate(R.id.action_nav_gallery_to_nav_slideshow);
-        }
-    }
-
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-    }
 
 }

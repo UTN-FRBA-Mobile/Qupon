@@ -9,7 +9,7 @@ public class Cupon implements Serializable {
     public String desc;
     public Double lat;
     public Double lon;
-    public String beaconId = "1111"
+    public String beaconId = "1111";
 
 
     public Cupon(String title, String desc, String imageResourceURL, Double lat, Double lon){

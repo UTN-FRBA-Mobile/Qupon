@@ -1,5 +1,6 @@
 package edu.utn.mobile.qupon;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -66,4 +67,5 @@ public class MainActivity extends AppCompatActivity {
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
 }

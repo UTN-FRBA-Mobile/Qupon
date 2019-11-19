@@ -2,6 +2,7 @@ package edu.utn.mobile.qupon.ui.home;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -17,12 +18,16 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import edu.utn.mobile.qupon.R;
@@ -38,12 +43,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        provider = locationManager.getBestProvider(new Criteria(), false);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        locationManager = (LocationManager) container.getContext().getSystemService(Context.LOCATION_SERVICE);
+        provider = locationManager.getBestProvider(new Criteria(), true);
+
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -57,7 +63,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    chequearHabilitarUbicacion();
+                    chequearHabilitarUbicacion(true);
             }
         });
 
@@ -82,26 +88,48 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLatLng, 12.0f));
         googleMap.getUiSettings().setCompassEnabled(true);
 
-        chequearHabilitarUbicacion();
+        chequearHabilitarUbicacion(false);
 
     }
 
-    private void chequearHabilitarUbicacion() {
-        provider = locationManager.getBestProvider(new Criteria(), false);
+    private void chequearHabilitarUbicacion(boolean pedirQuePrendaGps) {
+        provider = locationManager.getBestProvider(new Criteria(), true);
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+            this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                     REQUEST_LOCATION_CODE);
         } else if (googleMap != null && provider != null) {
             Log.d("Qupon", "Se permitió usar la ubicación");
-            Location userLocation = locationManager.getLastKnownLocation(provider);
-            if(userLocation != null){ //gps activado?
-                LatLng userLatLng = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,14.0f));
-                googleMap.setMyLocationEnabled(true);
-            } else {
-                googleMap.setMyLocationEnabled(false);
-            }
+            //Location userLocation = locationManager.getLastKnownLocation(provider);
+            FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // GPS location can be null if GPS is switched off
+                            if (location != null) {
+                                LatLng userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng,14.0f));
+                                googleMap.setMyLocationEnabled(true);
+                            } else {
+                                googleMap.setMyLocationEnabled(false);
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("MapDemoActivity", "Error trying to get last GPS location");
+                            googleMap.setMyLocationEnabled(false);
+                            e.printStackTrace();
+                        }
+                    });
+        } else if(pedirQuePrendaGps){
+            Intent gpsOptionsIntent = new Intent(
+                    android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(gpsOptionsIntent);
         }
     }
 

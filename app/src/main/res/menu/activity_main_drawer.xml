@@ -14,12 +14,10 @@
             android:icon="@drawable/ic_content_copy_black_24dp"
             android:title="@string/menu_gallery"
             android:actionMenuTextColor="@color/yellow" />
-<!--
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_qr_scan_code"
             android:title="@string/menu_slideshow" />
--->
         <item
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_manage"

@@ -18,5 +18,10 @@
     <string name="google_maps_key" translatable="false">AIzaSyBpDRxPaYouQvpWHrS7f_H7bdYBWpXavO0</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+    <string name="notification_channel_name" translatable="false">qupon-channel</string>
+    <string name="notification_channel_description" translatable="false">qupon-channel-desc</string>
+    <string name="preference_file_key" translatable="false">qupon_shared_preferences</string>
+
 </resources>

@@ -1,29 +1,20 @@
 package edu.utn.mobile.qupon;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
+import android.os.RemoteException;
+import android.util.Log;
+import android.view.Menu;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import android.os.RemoteException;
-import android.util.Log;
-
-import com.google.android.material.navigation.NavigationView;
-
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.Menu;
+import com.google.android.material.navigation.NavigationView;
 
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
@@ -36,12 +27,13 @@ import org.altbeacon.beacon.Region;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.utn.mobile.qupon.service.notification.NotificationService;
+
 public class MainActivity extends AppCompatActivity implements BeaconConsumer, RangeNotifier {
 
     private AppBarConfiguration mAppBarConfiguration;
     public static NavController navController;
-
-    protected static final String TAG = "RangingActivity";
+    protected static final String TAG_BEACONS = "BeaconActivity";
     private BeaconManager mBeaconManager;
 
     @Override
@@ -63,18 +55,23 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        NotificationService.createNotificationChannel(this);
 
+        configurarBeaconManager();
+    }
+
+    private void configurarBeaconManager() {
         mBeaconManager = BeaconManager.getInstanceForApplication(this);
 
-        // En este ejemplo vamos a usar el protocolo Eddystone, así que tenemos que definirlo aquí
+        // Usa el protocolo Eddystone
         mBeaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout(BeaconParser.EDDYSTONE_UID_LAYOUT));
+        mBeaconManager.setForegroundBetweenScanPeriod(4000);
 
         // Bindea esta actividad al BeaconService
-        Log.e("SDAD","SDASDASD3");
+        Log.e(TAG_BEACONS, "Pre Bindeo");
         mBeaconManager.bind(this);
-        Log.e("SDAD","SDASDASD4");
-
+        Log.e(TAG_BEACONS, "Post Bindeo");
     }
 
     @Override
@@ -100,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void onBeaconServiceConnect() {
-        Log.e("SDAD","SDASDASD");
+        Log.e(TAG_BEACONS, "onBeaconServiceConnect");
         // Encapsula un identificador de un beacon de una longitud arbitraria de bytes
         ArrayList<Identifier> identifiers = new ArrayList<>();
 
@@ -123,12 +120,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-        Log.e("SDAD","SDASDASD2");
-        for(Beacon b : beacons){
-            Log.e("beacon", b.getServiceUuid()+"");
-        }
-        if (beacons.size() > 0) {
-            Log.e(TAG, "El primer beacon detectado se encuentra a una distancia de "+beacons.iterator().next().getDistance()+" metros.");
+        Log.i(TAG_BEACONS, "Buscando beacons...");
+        for (Beacon beacon : beacons) {
+            Log.d(TAG_BEACONS, "Beacon UUID: " + beacon.getServiceUuid());
+            Log.i(TAG_BEACONS, new StringBuilder().append("Beacon detectado (").append(beacon.getId2()).append(") se encuentra a ").append(beacon.getDistance()).append(" metros.").toString());
+            NotificationService.sendBeaconNotification(this, Integer.decode(beacon.getId2().toString()));
         }
     }
+
 }

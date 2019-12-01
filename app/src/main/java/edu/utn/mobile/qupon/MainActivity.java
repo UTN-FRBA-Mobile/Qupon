@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -79,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         mBeaconManager.setForegroundBetweenScanPeriod(4000);
 
         // Bindea esta actividad al BeaconService
-        Log.e(TAG_BEACONS,"Pre Bindeo");
+        Log.e(TAG_BEACONS, "Pre Bindeo");
         mBeaconManager.bind(this);
-        Log.e(TAG_BEACONS,"Post Bindeo");
+        Log.e(TAG_BEACONS, "Post Bindeo");
 
     }
 
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void onBeaconServiceConnect() {
-        Log.e(TAG_BEACONS,"onBeaconServiceConnect");
+        Log.e(TAG_BEACONS, "onBeaconServiceConnect");
         // Encapsula un identificador de un beacon de una longitud arbitraria de bytes
         ArrayList<Identifier> identifiers = new ArrayList<>();
 
@@ -131,37 +132,36 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
     @Override
     public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-        Log.e(TAG_BEACONS,"Buscando beacons...");
-        for(Beacon beacon : beacons){
+        Log.e(TAG_BEACONS, "Buscando beacons...");
+        for (Beacon beacon : beacons) {
             Log.d(TAG_BEACONS, "Beacon UUID: " + beacon.getServiceUuid());
             Log.i(TAG_BEACONS, new StringBuilder().append("Beacon detectado (").append(beacon.getId2()).append(") se encuentra a una distancia de ").append(beacon.getDistance()).append(" metros.").toString());
             sendBeaconNotification(beacon);
         }
     }
 
-    private void sendBeaconNotification(Beacon beacon){
+    private void sendBeaconNotification(Beacon beacon) {
         Identifier beaconId = beacon.getId2();
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         long timestampUltimoAviso = sharedPref.getLong(PREFIJO_BEACON_TIMESTAMP_SHPREF + beaconId, 0);
         long now = System.currentTimeMillis();
 
-        if(timestampUltimoAviso < now - INTERVALO_MILLIS_POLLING_BEACON){
+        if (timestampUltimoAviso < now - INTERVALO_MILLIS_POLLING_BEACON) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+            PendingIntent mainActivityIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, MainActivity.NOTIF_CHANNEL_ID)
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+            Integer notificationId = Integer.decode(beaconId.toString());
+            notificationManager.notify(notificationId, new NotificationCompat.Builder(this, MainActivity.NOTIF_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_coupon)
                     .setContentTitle("Qupon encontrado!")
                     .setContentText(beaconId.toString())
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    // Set the intent that will fire when the user taps the notification
-                    .setContentIntent(pendingIntent)
-                    .setAutoCancel(true);
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-            // notificationId is a unique int for each notification that you must define
-            notificationManager.notify(Integer.parseInt(beaconId.toString()), notificationBuilder.build());
+                    .setContentIntent(mainActivityIntent) //Intent que se dispara al tocar notificacion
+                    .setAutoCancel(true)
+                    .build());
 
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putLong(PREFIJO_BEACON_TIMESTAMP_SHPREF + beaconId, now);

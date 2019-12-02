@@ -1,5 +1,6 @@
 package edu.utn.mobile.qupon.service.notification;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -7,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -42,10 +44,10 @@ public class NotificationService {
         long timestampUltimoAviso = sharedPref.getLong(PREFIJO_BEACON_TIMESTAMP_SHPREF + notificationId, 0);
         long now = System.currentTimeMillis();
 
-        if (timestampUltimoAviso < now - INTERVALO_MILLIS_POLLING_BEACON) {
+        if (timestampUltimoAviso < (now - INTERVALO_MILLIS_POLLING_BEACON)) {
             Intent intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            PendingIntent mainActivityIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            PendingIntent mainActivityIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
             notificationManager.notify(notificationId, new NotificationCompat.Builder(context, NOTIF_CHANNEL_ID)
@@ -60,7 +62,21 @@ public class NotificationService {
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putLong(PREFIJO_BEACON_TIMESTAMP_SHPREF + notificationId, now);
             editor.commit();
+        } else {
+            Log.d("NotificationService", "Beacon ya encontrado hace " + ((now - timestampUltimoAviso) / 1000) + "\"");
         }
     }
 
+
+    public static Notification buildForegroundScanNotification(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        return new NotificationCompat.Builder(context, NOTIF_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher_foreground)
+                .setContentTitle("Buscando cupones...")
+                .setContentIntent(pendingIntent)
+                .build();
+    }
 }

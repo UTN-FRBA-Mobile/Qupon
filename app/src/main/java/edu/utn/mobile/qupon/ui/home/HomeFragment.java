@@ -30,7 +30,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 import edu.utn.mobile.qupon.R;
+import edu.utn.mobile.qupon.entities.Local;
+import edu.utn.mobile.qupon.repository.LocalesRepository;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
@@ -39,6 +43,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private LocationManager locationManager;
     private String provider;
     private GoogleMap googleMap;
+    private LocalesRepository localesRepository;
+    private static LatLng defaultLatLng = new LatLng(-34.6157437, -58.4244954);
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -54,6 +60,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        localesRepository = new LocalesRepository();
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.home_map_fragment);
@@ -73,18 +80,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        LatLng defaultLatLng = new LatLng(-34.6157437, -58.4244954);
 
-        googleMap.addMarker(new MarkerOptions()
-                .position(defaultLatLng)
-                .title("Mc Donald´s"));
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-34.6203259,-58.3845563))
-                .title("Burger King"));
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-34.6102944,-58.3956384))
-                .title("Wendy´s"));
-                //.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_coupon)));
+        for (Local local: localesRepository.obtenerLocales()) {
+            googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(local.lat,local.lon))
+                    .title(local.nombre));
+        }
+
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLatLng, 12.0f));
         googleMap.getUiSettings().setCompassEnabled(true);
 

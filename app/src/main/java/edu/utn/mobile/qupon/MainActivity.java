@@ -32,7 +32,7 @@ import java.util.Collection;
 
 import edu.utn.mobile.qupon.repository.CuponesRepository;
 import edu.utn.mobile.qupon.service.notification.NotificationService;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.entities.Cupon;
 
 import static org.altbeacon.beacon.BeaconParser.EDDYSTONE_UID_LAYOUT;
 

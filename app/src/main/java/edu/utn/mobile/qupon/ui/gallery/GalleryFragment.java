@@ -3,7 +3,6 @@ package edu.utn.mobile.qupon.ui.gallery;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,7 +18,7 @@ import java.util.List;
 import edu.utn.mobile.qupon.R;
 import edu.utn.mobile.qupon.repository.CuponesRepository;
 import edu.utn.mobile.qupon.ui.gallery.adapters.CuponesRecyclerViewAdapter;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.entities.Cupon;
 import edu.utn.mobile.qupon.ui.gallery.viewHolders.CuponItemViewHolder;
 
 public class GalleryFragment extends Fragment {

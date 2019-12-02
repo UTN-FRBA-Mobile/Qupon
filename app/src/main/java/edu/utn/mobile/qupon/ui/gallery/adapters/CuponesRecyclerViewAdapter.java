@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import edu.utn.mobile.qupon.R;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.entities.Cupon;
 import edu.utn.mobile.qupon.ui.gallery.viewHolders.CuponItemViewHolder;
 
 public class CuponesRecyclerViewAdapter extends RecyclerView.Adapter<CuponItemViewHolder> {

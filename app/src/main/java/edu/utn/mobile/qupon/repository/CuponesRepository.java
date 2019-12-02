@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.entities.Cupon;
 
 public class CuponesRepository {
 

@@ -1,42 +1,25 @@
 package edu.utn.mobile.qupon.ui.qr;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.os.Vibrator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Surface;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
-import java.lang.Object;
-import android.util.Log;
 import android.util.SparseArray;
-import androidx.annotation.Nullable;
+
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import edu.utn.mobile.qupon.R;
-import android.hardware.camera2.CameraManager;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+
 import android.webkit.URLUtil;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;

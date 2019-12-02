@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import androidmads.library.qrgenearator.QRGContents;
 import androidmads.library.qrgenearator.QRGEncoder;
 import edu.utn.mobile.qupon.R;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.entities.Cupon;
 
 public class SlideshowFragment extends Fragment {
 

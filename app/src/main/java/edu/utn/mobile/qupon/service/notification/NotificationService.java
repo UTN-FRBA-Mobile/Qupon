@@ -15,7 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import edu.utn.mobile.qupon.MainActivity;
 import edu.utn.mobile.qupon.R;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
+import edu.utn.mobile.qupon.entities.Cupon;
 
 public class NotificationService {
 

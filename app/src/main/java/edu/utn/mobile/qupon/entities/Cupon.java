@@ -1,4 +1,4 @@
-package edu.utn.mobile.qupon.ui.gallery.entities;
+package edu.utn.mobile.qupon.entities;
 
 import java.io.Serializable;
 import java.util.Date;

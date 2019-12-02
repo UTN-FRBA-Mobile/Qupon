@@ -1,6 +1,5 @@
 package edu.utn.mobile.qupon.ui.gallery.viewHolders;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,10 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
 import edu.utn.mobile.qupon.R;
-import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
 
 
 public class CuponItemViewHolder extends RecyclerView.ViewHolder {

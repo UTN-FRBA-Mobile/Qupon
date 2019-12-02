@@ -15,6 +15,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import edu.utn.mobile.qupon.MainActivity;
 import edu.utn.mobile.qupon.R;
+import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
 
 public class NotificationService {
 
@@ -38,7 +39,7 @@ public class NotificationService {
         }
     }
 
-    public static void sendBeaconNotification(Context context, Integer notificationId) {
+    public static void sendBeaconNotification(Context context, Integer notificationId, Cupon cupon) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         long timestampUltimoAviso = sharedPref.getLong(PREFIJO_BEACON_TIMESTAMP_SHPREF + notificationId, 0);
@@ -53,7 +54,7 @@ public class NotificationService {
             notificationManager.notify(notificationId, new NotificationCompat.Builder(context, NOTIF_CHANNEL_ID)
                     .setSmallIcon(R.drawable.ic_coupon)
                     .setContentTitle("Qupon encontrado!")
-                    .setContentText(notificationId.toString())
+                    .setContentText(cupon.desc + " en " + cupon.title)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(mainActivityIntent) //Intent que se dispara al tocar notificacion
                     .setAutoCancel(true)

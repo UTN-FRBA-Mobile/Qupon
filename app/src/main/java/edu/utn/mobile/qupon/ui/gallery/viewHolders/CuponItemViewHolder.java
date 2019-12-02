@@ -32,12 +32,7 @@ public class CuponItemViewHolder extends RecyclerView.ViewHolder {
         title = itemView.findViewById(R.id.cupon_rv_item_title);
         description = itemView.findViewById(R.id.cupon_rv_item_desc);
         image = itemView.findViewById(R.id.cupon_rv_item_image);
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onViewClick(v, itemIndex);
-            }
-        });
+        image.setOnClickListener(view -> mListener.onViewClick(view, itemIndex));
 
     }
 

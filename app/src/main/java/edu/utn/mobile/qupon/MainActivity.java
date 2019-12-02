@@ -30,7 +30,9 @@ import org.altbeacon.beacon.startup.BootstrapNotifier;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import edu.utn.mobile.qupon.repository.CuponesRepository;
 import edu.utn.mobile.qupon.service.notification.NotificationService;
+import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
 
 import static org.altbeacon.beacon.BeaconParser.EDDYSTONE_UID_LAYOUT;
 
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
     private BeaconManager mBeaconManager;
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
+    private CuponesRepository cuponesRepository;
 
     protected static final String TAG_BEACONS = "BeaconActivity";
     public static final int FOREGORUND_SERVICE_NOTIFICATION_ID = 99999;
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
 
         NotificationService.createNotificationChannel(this);
 
+        cuponesRepository = new CuponesRepository();
         configurarBeaconManager();
     }
 
@@ -146,7 +150,11 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, R
         for (Beacon beacon : beacons) {
             Log.d(TAG_BEACONS, "Beacon UUID: " + beacon.getServiceUuid());
             Log.i(TAG_BEACONS, new StringBuilder().append("Beacon detectado (").append(beacon.getId2()).append(") se encuentra a ").append(beacon.getDistance()).append(" metros.").toString());
-            NotificationService.sendBeaconNotification(this, Integer.decode(beacon.getId2().toString()));
+
+            Cupon cupon = cuponesRepository.obtenerPorBeaconId(beacon.getId2().toString());
+            if(cupon != null){
+                NotificationService.sendBeaconNotification(this, Integer.decode(beacon.getId2().toString()), cupon);
+            }
         }
     }
 

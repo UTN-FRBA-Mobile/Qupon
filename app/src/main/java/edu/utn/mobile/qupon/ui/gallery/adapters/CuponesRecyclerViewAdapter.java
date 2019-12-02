@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import edu.utn.mobile.qupon.R;
@@ -19,7 +18,7 @@ import edu.utn.mobile.qupon.ui.gallery.viewHolders.CuponItemViewHolder;
 
 public class CuponesRecyclerViewAdapter extends RecyclerView.Adapter<CuponItemViewHolder> {
 
-    List<Cupon> mDataSet = new ArrayList<Cupon>();
+    List<Cupon> mDataSet;
     Context context;
     CuponItemViewHolder.OnViewClickListener clickListener;
 
@@ -27,9 +26,7 @@ public class CuponesRecyclerViewAdapter extends RecyclerView.Adapter<CuponItemVi
         this.context = context;
         mDataSet = dataSet;
         clickListener = listener;
-
     }
-
 
     @NonNull
     @Override

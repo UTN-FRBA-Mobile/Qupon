@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.utn.mobile.qupon.R;
-import edu.utn.mobile.qupon.ui.gallery.GalleryFragment;
 import edu.utn.mobile.qupon.ui.gallery.entities.Cupon;
 import edu.utn.mobile.qupon.ui.gallery.viewHolders.CuponItemViewHolder;
 

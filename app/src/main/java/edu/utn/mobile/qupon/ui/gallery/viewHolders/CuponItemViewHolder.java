@@ -38,21 +38,7 @@ public class CuponItemViewHolder extends RecyclerView.ViewHolder {
                 mListener.onViewClick(v, itemIndex);
             }
         });
-/*
-        Bundle bundle  = new Bundle();
-        bundle.putSerializable("cupon", cupon);
-        bundle.putString("desc", "Descripción");
-        navController.navigate(R.id.action_nav_gallery_to_nav_slideshow, bundle);
-    */
 
     }
-
-
-    private final View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            mListener.onViewClick(view, getAdapterPosition());
-        }
-    };
 
 }

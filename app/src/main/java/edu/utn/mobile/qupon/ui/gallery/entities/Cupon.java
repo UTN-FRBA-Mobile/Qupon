@@ -1,6 +1,7 @@
 package edu.utn.mobile.qupon.ui.gallery.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Cupon implements Serializable {
 
@@ -9,15 +10,18 @@ public class Cupon implements Serializable {
     public String desc;
     public Double lat;
     public Double lon;
-    public String beaconId = "1111";
+    public Date vencimiento;
+    public String beaconId;
 
 
-    public Cupon(String title, String desc, String imageResourceURL, Double lat, Double lon){
+    public Cupon(String beaconId, String title, String desc, String imageResourceURL, Double lat, Double lon, Date vencimiento){
+        this.beaconId = beaconId;
         this.title = title;
         this.desc = desc;
         this.imgResource = imageResourceURL;
         this.lat = lat;
         this.lon = lon;
+        this.vencimiento = vencimiento;
 
     }
 

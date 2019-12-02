@@ -54,22 +54,17 @@
             android:text="Descripcion mas larga del cupón, los beneficios y la reglamentación de la promoción" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button_generar_qr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:drawableLeft="@drawable/ic_qr_scan_code"
-                android:text="GENERAR QR"
-                android:textColor="@color/colorPrimary" />
-
+            <ImageView
+                android:id="@+id/qr_image"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:contentDescription="QR cupon" />
 
         </LinearLayout>
 
